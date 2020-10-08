@@ -2,9 +2,6 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types';
 import { ApiErrors, apiFetch } from './utils/api';
 
-
-
-// formulaire de connection 
 export function SignupForm ({onConnect}) {
   const [error, setError] = useState(null)
   const [loading, setLoading] = useState(false)
@@ -15,7 +12,7 @@ export function SignupForm ({onConnect}) {
     e.preventDefault()
     const data = new FormData(e.target);
     try {
-      const user = await apiFetch('/user/lregister', {
+      const user = await apiFetch('/user/register', {
         method: 'POST',
         body: data
     }) 
@@ -30,7 +27,7 @@ export function SignupForm ({onConnect}) {
     }
   }
   
-
+  // formulaire d'inscription
   return <form className="container mt-4" onSubmit={handleSubmit}>
     <h2>S'inscrire</h2>
     {error && <Alert>{error}</Alert>} 
@@ -52,10 +49,7 @@ export function SignupForm ({onConnect}) {
     </div>
     <button type="submit" className="btn btn-primary">S'inscrire</button>
   </form>
-  
-
-  } 
-
+} 
 
 SignupForm.propTypes = {
   onConnect: PropTypes.func.isRequired

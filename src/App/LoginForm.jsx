@@ -2,9 +2,7 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types';
 import { ApiErrors, apiFetch } from './utils/api';
 import { Button } from './ui/Button';
-
-
-// formulaire de connection 
+ 
 export function LoginForm ({onConnect}) {
   const [error, setError] = useState(null)
   const [loading, setLoading] = useState(false)
@@ -13,6 +11,7 @@ export function LoginForm ({onConnect}) {
     setError(null)
     setLoading(true)
     e.preventDefault()
+    //Appel de l'API pour envoie (POST)
     const data = new FormData(e.target);
     try {
       const user = await apiFetch('/user/login', {
@@ -29,8 +28,8 @@ export function LoginForm ({onConnect}) {
       setLoading(false)
     }
   }
-  
 
+  // formulaire de connection
   return <form className="container mt-4" onSubmit={handleSubmit}>
     <h2>Se connecter</h2>
     {error && <Alert>{error}</Alert>} 
@@ -47,7 +46,6 @@ export function LoginForm ({onConnect}) {
   
 
   } 
-
 
 LoginForm.propTypes = {
   onConnect: PropTypes.func.isRequired
