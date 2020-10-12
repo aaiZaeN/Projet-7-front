@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Modal } from '../../ui/Modal'
+import { Modal } from '../ui/Modal'
 
 export function Groupopost({ groupopost, onCLose}) {
   return (

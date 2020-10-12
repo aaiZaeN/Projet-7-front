@@ -22,13 +22,8 @@ export function Site() {
   
   let content = null
   if (page === 'groupoposts') {
-    content = <Groupoposts
-      groupoposts={groupoposts}
-      //onDelete={deleteGroupopost}
-      //onUpdate={updateGroupopost}
-      onCreate={createGroupopost}
-      />
-  }
+    content = <Groupoposts groupoposts={groupoposts} onClick={fetchGroupopost} />
+}
 
   useEffect(function () {
     if (page === 'groupoposts') {
@@ -42,11 +37,12 @@ export function Site() {
     <div className="container">
       {groupopost ? <Groupopost groupopost={groupopost} onCLose={deselectGroupopost} /> : null}
       {add && <Modal title="Créer un Groupopost" onClose={toggleAdd}>
-
+          <CreateGroupopostForm onSubmit={createGroupopost} />
         </Modal>}
+        {content}
     </div>
-    </>
-  }
+  </>
+}
 
 // fonction permettant d'afficher sur quelle page on se trouve
 function NavBar({ currentPage, onClick, onButtonClick }) {

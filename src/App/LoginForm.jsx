@@ -6,13 +6,18 @@ import { Button } from './ui/Button';
 export function LoginForm ({onConnect}) {
   const [error, setError] = useState(null)
   const [loading, setLoading] = useState(false)
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
 
   const handleSubmit = async function (e) {
     setError(null)
     setLoading(true)
     e.preventDefault()
     //Appel de l'API pour envoie (POST)
-    const data = new FormData(e.target);
+    const data = JSON.stringify({email, password})
+    console.log(data)
+    console.log(e.target)
     try {
       const user = await apiFetch('/user/login', {
         method: 'POST',
@@ -30,21 +35,20 @@ export function LoginForm ({onConnect}) {
   }
 
   // formulaire de connection
-  return <form className="container mt-4" onSubmit={handleSubmit}>
+  return <form className="container mt-4">
     <h2>Se connecter</h2>
     {error && <Alert>{error}</Alert>} 
     <div className="form-group">
       <label htmlFor="email">Email</label>
-      <input type="text" name="email" id="email" className="form-control" required/>
+      <input type="text" name="email" id="email" className="form-control" value={email}  onChange={e => setEmail(e.target.value)}required/>
     </div>
     <div className="form-group">
       <label htmlFor="password">Mot de passe</label>
-      <input type="password" name="password" id="password" className="form-control" required/>
+      <input type="password" name="password" id="password" className="form-control" value={password} onChange={e => setPassword(e.target.value)} required/>
     </div>
-    <Button type="submit" loading={loading}>Se connecter</Button>
+    <Button type="submit" loading={loading} onClick={handleSubmit}>Se connecter</Button>
+    <Button type="button">Inscription</Button>
   </form>
-  
-
   } 
 
 LoginForm.propTypes = {

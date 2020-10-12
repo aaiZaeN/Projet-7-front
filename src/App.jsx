@@ -4,8 +4,8 @@ import { Site } from './App/Site';
 //import Footer from './App/Footer';
 //import { SignupForm } from './App/SignupForm';
 //import Error from './App/Error';
-//import { Groupoposts } from './App/Groupoposts/Groupoposts';
-//import Profil from './App/Profil'
+import { Groupoposts } from './App/Groupoposts/Groupoposts';
+import Profil from './App/Profil'
 
 
 
@@ -16,10 +16,10 @@ export default function App() {
 
 
   return (
-    //user ? <Site /> : <LoginForm onConnect={setUser} />
+    user ? <Site /> : <LoginForm onConnect={setUser} />
     //user ? <Site /> : <SignupForm onConnect={setUser} />
-   <Site />
-   //<Profil />
+    //<Site />
+    //<Profil />
   );
 }
 

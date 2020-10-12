@@ -1,5 +1,6 @@
 import React from 'react'
 
+//Composant Profil permettant l'affichage des infos de l'user (Nom, Prénom, Email) et un bouton "supprimer mon profil"
 const Profil = () => {
   return (
     <div>
