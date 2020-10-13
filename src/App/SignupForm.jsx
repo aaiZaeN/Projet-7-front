@@ -10,6 +10,7 @@ export function SignupForm ({onConnect}) {
   const [firstName, setFirstName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
 
   const handleSubmit = async function (e) {
     setError(null)
@@ -55,7 +56,10 @@ export function SignupForm ({onConnect}) {
       <label htmlFor="password">Mot de passe</label>
       <input type="password" name="password" id="password" className="form-control" value={password} onChange={e => setPassword(e.target.value)} required/>
     </div>
-  
+  <div className="form-group">
+      <label htmlFor="confrmPassword">Confirmer le mot de passe</label>
+      <input type="confirmPassword" name="confirmPassword" id="confirmPassword" className="form-control" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} required/>
+    </div>
     <Button type="submit" loading={loading} onClick={handleSubmit}>S'inscrire</Button>
     <Button type="button">Connection</Button>
   </form>

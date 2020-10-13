@@ -9,7 +9,7 @@ export function Groupoposts({groupoposts, onClick}) {
   }
 
   return <div className="row">
-    {(groupopost => <div className="col-md-4 mb-4" key={groupopost.id}>
+    {groupoposts.map(groupopost => <div className="col-md-4 mb-4" key={groupopost.id}>
       <Groupopost groupopost={groupopost} onClick={onClick} />
     </div> )}
   </div>
@@ -23,9 +23,8 @@ Groupoposts.propTypes = {
 const Groupopost = memo(function ({ groupopost, onClick }) {
   return <div className="card">
     <div className="card-body">
-      <div className="card-title">{groupopost.title}</div>
-      <p className="card-text">{groupopost.short}</p>
-      <Button onClick={() => onClick(groupopost)}>Voir le Groupopost</Button>
+      <div className="card-title"><h3>{groupopost.title}</h3></div>
+      <p className="card-text">{groupopost.content}</p>
     </div>
   </div>  
 })
