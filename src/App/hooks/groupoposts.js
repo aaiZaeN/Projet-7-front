@@ -26,7 +26,7 @@ export function useGroupoposts() {
         return
       }
       dispatch({ type: 'FETCHING_GROUPOPOSTS' })
-      const groupoposts = await apiFetch('/groupoposts')
+      const groupoposts = await apiFetch('/messages')
       dispatch({ type: 'SET_GROUPOPOSTS', payload: groupoposts })
     }
   }

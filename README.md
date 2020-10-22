@@ -1,5 +1,20 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Installation 
+-Récuperez le backend ; https://github.com/aaiZaeN/Projet-7-Backend
+
+-Côté backend, depuis le dossier backend executez la commande : "npm i".
+
+-Une fois le dossier node_modules récupéré éxecutez la commande: "nodemon app".
+
+Côté frontend, depuis le dossier front executez la commande npm i".
+
+-Une fois le dossier node_modules récupéré éxecutez la commande "npm start"
+
+-Dans votre navigateur rendez vous à http://localhost:3000.
+Si ça ne fonctionne pas vérifiez que vous n'avez pas d'application lancée sur le port 3000, sinon changez le port de l'app ou contactez l'administrateur.
+
+
 ## Available Scripts
 
 In the project directory, you can run:

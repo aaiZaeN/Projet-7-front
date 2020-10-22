@@ -6,13 +6,8 @@ import axios from 'axios'
 export default class Profil extends Component {
   //On récupere l'email et le mot de passe pour la suppression du profil
   handleDelete = e => {
-    const data = {
-      email: this.email,
-      password: this.password,
-    };
-    console.log(data);
     //Config axios + redirection vers la page d'inscription
-    axios.delete('users/delete', data).then(
+    axios.delete('users/me').then(
     res => {
       document.location.href="http://localhost:3000/register"
       console.log(res)
@@ -48,29 +43,13 @@ export default class Profil extends Component {
         <div className="auth-wrapper">
           <div className="auth-inner text-center">
             {decodedHeader.isAdmin && <h2>ADMIN</h2>}
-            <h2>Nom: {this.props.user.firstName}</h2>
-            <h2>Prénom: {this.props.user.lastName}</h2>
+            <h2>Nom d'utilisateur: {this.props.user.username}</h2>
             <h2>Email: {this.props.user.email}</h2>
             <Button className="btn btn-danger" onClick={() => {this.handleModal()}}>Supprimer votre profil</Button>
               <Modal show={this.state.show} >
-                <Modal.Header>Pour supprimer votre compte veuillez confirmer vos identifiants</Modal.Header>
+                <Modal.Header>Êtes vous sur de vouloir supprimer votre profil ? </Modal.Header>
                   <Modal.Body>
-                    <form onSubmit={this.handleSubmit}>
-                      
-                      <div className="form-group">
-                        <label>Email:</label>
-                        <input type="email" className="form-control" placeholder="Email"
-                          onChange={e => this.email = e.target.value}/>
-                      </div>
-
-                      <div className="form-group">
-                        <label>Mot de passe:</label>
-                        <input type="password" className="form-control" placeholder="Mot de passe"
-                          onChange={e => this.password = e.target.value}/>
-                      </div>
-
-                      <Button className="btn btn-danger btn-block" onClick={() => {this.handleDelete()}}>Confirmer la suppression de votre profil</Button>
-                    </form>
+                    <Button className="btn btn-danger btn-block" onClick={() => {this.handleDelete()}}>Confirmer la suppression de votre profil</Button>
                   </Modal.Body> 
                   <Modal.Footer>
                     <Button onClick={() => {this.handleModal()}}>Fermer</Button>

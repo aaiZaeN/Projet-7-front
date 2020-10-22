@@ -4,15 +4,18 @@ import { Component } from 'react';
 
 export default class CreateGroupopost extends Component {
 
+  //récuperation du titre et du content pour poster un message
   handleSubmit = e => {
     e.preventDefault();
     const data = {
       title: this.title,
       content: this.content,
+      attachment: this.attachment
     };
     console.log(data);
 
-    axios.post('groupoposts', data).then(
+    //config d'axios + redirect
+    axios.post('message', data).then(
     res => {
       document.location.href="http://localhost:3000/groupoposts"
       console.log(res)
@@ -23,7 +26,8 @@ export default class CreateGroupopost extends Component {
     }
   )
 };
-  
+
+  //form
   render() {
     return (
       <div className="auth-wrapper">
@@ -42,7 +46,7 @@ export default class CreateGroupopost extends Component {
           <textarea type="textarea" className="form-control" placeholder="Contenu"
             onChange={e => this.content = e.target.value}/>
         </div>
-
+        
         <button className="btn btn-primary btn-block">Poster un groupopost</button>
       </form>
       </div>

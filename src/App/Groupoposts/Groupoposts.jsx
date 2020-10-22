@@ -3,12 +3,14 @@ import PropTypes from 'prop-types'
 import { Loader } from '../ui/Loader'
 import jwt_decode from "jwt-decode"
 import axios from 'axios'
+import moment from 'moment'
+import { Link } from 'react-router-dom'
+const fs = require('fs')
+const querystring = require('querystring')
 
 //Composant Groupoposts permetant l'affichage des Groupoposts
 export function Groupoposts({groupoposts, onClick}) {
-
-
-  //Si il n'y à pas de Groupoposts ou qu'ils chargent on affiche le 'Loader'
+  
   if (groupoposts === null) {
     return <Loader />
   }
@@ -26,31 +28,36 @@ Groupoposts.propTypes = {
 let token = localStorage.getItem('token')
 //Decriptage du token
 let decodedHeader = jwt_decode(token);
-
-//Mise en forme des Groupoposts, affichage du bouton supprimé si le Groupopost 
-//a été créé par le user connécté ou si le user connécté est un admin
+console.log(decodedHeader)
 
 
-const deleteGroupopost = (groupopost) => {
-  axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('token');
-  axios.delete('groupoposts/delete', groupopost.id)
-      .then(function (response) {
-          console.log(response)
-      })
-      .catch(function (error) {
-          console.log(error);
-      });
-}
-const Groupopost = memo(function ({ groupopost }) {
-  return <div className="row" key={groupopost.id}>
-  <div className="card w-100">
-    <div className="card-body ">
-      <div className="card-title"><h3>{groupopost.title}</h3></div>
-      <p className="card-text">{groupopost.content}</p>
-<p>{groupopost.id}</p>
-      {(groupopost.UserId == decodedHeader.idUSERS || decodedHeader.isAdmin) && 
-      <button key={groupopost.id}className="btn btn-danger" onClick={deleteGroupopost}>Supprimer</button>}
-    </div>
-    </div>
-  </div>  
+const Groupopost = memo(function ({ groupopost, userFound }) {
+  const deleteGroupopost = () => {
+    axios.delete("/messages/" + groupopost.id, {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem('token')
+      }})
+          .then(function (response) {
+            document.location.href="http://localhost:3000/groupoposts"
+              console.log(response)
+          })
+          .catch(function (error) {
+              console.log(error);
+          });
+    }   
+
+  return (
+    <div className="row" key={groupopost.id}>
+      <div className="card w-100">
+        <div className="card-body ">
+          <div className="card-title"><h3>{groupopost.title}</h3></div>
+              <p className="card-text">{groupopost.content}</p>
+              {console.log( groupopost.username)}
+              {(groupopost.UserId == decodedHeader.userId || decodedHeader.isAdmin) && 
+                <button key={groupopost.id}className="btn btn-danger" onClick={e => deleteGroupopost()}>Supprimer</button>
+              }
+              <div className="mt-3">Crée le : {moment(groupopost.createdAt).format("dd, MM Do YYYY, h:m:s a")}</div>
+            </div>
+        </div>
+  </div>  )
 })

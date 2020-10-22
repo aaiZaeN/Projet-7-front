@@ -8,10 +8,11 @@ export function Wall() {
   const {
     groupoposts,
     fetchGroupoposts,
+    fetchGroupopost,
   } = useGroupoposts()
   
   let content = null
-   {content = <Groupoposts groupoposts={groupoposts} />}  
+   {content = <Groupoposts groupoposts={groupoposts} onClick={fetchGroupopost} />}  
 
   useEffect(function () {
    {fetchGroupoposts()}

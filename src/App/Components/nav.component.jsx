@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Modal, Button } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
+import Logo from'../images/icon-left-font-monochrome-black.png'
 
 //Composant Nav
 export default class Nav extends Component {
@@ -20,7 +21,7 @@ export default class Nav extends Component {
     };
     console.log(data);
     //Config axios + redirection à la page Groupoposts si OK, sinon on retourne l'erreur
-    axios.post('groupoposts', data).then(
+    axios.post('messages', data).then(
     res => {
       document.location.href="http://localhost:3000/groupoposts"
       console.log(res)
@@ -42,6 +43,25 @@ constructor()
   handleModal()
   {
     this.setState({show:!this.state.show})
+  }
+
+  state = {
+    selectedFile: null
+  }
+
+  fileSelectedHandler = e => {
+    this.setState({
+    selectedFile: e.target.files[0]
+    })
+  }
+
+  fileUploadHandler = () => {
+    const fd = new FormData();
+    fd.append('image', this.state.selectedFile, this.state.selectedFile.name);
+    axios.post('messages/newimages')
+      .then(res => {
+        console.log(res)
+      })
   }
   render() {
     let buttons;
@@ -67,12 +87,12 @@ constructor()
                       <textarea type="textarea" className="form-control" placeholder="Contenu"
                         onChange={e => this.content = e.target.value}/>
                     </div>
-
+                    
                     <button className="btn btn-primary btn-block">Poster un groupopost</button>
                   </form>
                 </Modal.Body>
                 <Modal.Footer>
-                  <Button onClick={() => {this.handleModal()}}>Fermer</Button>
+                  <Button onClick={() => {this.fileSelectedHandler()}}>Fermer</Button>
                 </Modal.Footer>
               </Modal>
           </li>
@@ -94,16 +114,16 @@ constructor()
             <Link href="" className="nav-link" to={'/login'}>Se connecter</Link>
               </li>
           <li className="nav-item">
-            <Link href="" className="nav-link" to={'/register'}>S'inscrire'</Link>
+            <Link href="" className="nav-link" to={'/register'}>S'inscrire</Link>
           </li>
         </ul>
       )
     }
     //Logo Groupomania
     return (
-      <nav className="navbar navbar-expand navbar-light mb-5">
+      <nav className="navbar navbar-expand fixed-top navbar-light mb-5">
         <div className="container">
-          <Link href="" className="navbar-brand" to={'/groupoposts'}>Groupomania</Link>
+            <img src={Logo} style={{width:200}} />
             <div className="collapse navbar-collapse">
               {buttons}
             </div>
