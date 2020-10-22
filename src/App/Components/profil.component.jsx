@@ -26,6 +26,7 @@ export default class Profil extends Component {
       show:false
     }
   }
+  //config ouverture/fermeture boite Modal au clique du bouton
   handleModal()
   {
     this.setState({show:!this.state.show})
@@ -41,7 +42,7 @@ export default class Profil extends Component {
     if(this.props.user){
       return (
         <div className="auth-wrapper">
-          <div className="auth-inner text-center">
+          <div className="auth-inner text-center boxProfil">
             {decodedHeader.isAdmin && <h2>ADMIN</h2>}
             <h2>Nom d'utilisateur: {this.props.user.username}</h2>
             <h2>Email: {this.props.user.email}</h2>

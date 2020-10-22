@@ -18,7 +18,6 @@ export function Wall() {
    {fetchGroupoposts()}
   }, [fetchGroupoposts])
 
-
   return <>    
     <div className="container">      
       {content}

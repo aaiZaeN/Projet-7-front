@@ -40,6 +40,7 @@ constructor()
       show:false
     }
   }
+
   handleModal()
   {
     this.setState({show:!this.state.show})
@@ -54,7 +55,7 @@ constructor()
     selectedFile: e.target.files[0]
     })
   }
-
+//Test
   fileUploadHandler = () => {
     const fd = new FormData();
     fd.append('image', this.state.selectedFile, this.state.selectedFile.name);
@@ -65,7 +66,7 @@ constructor()
   }
   render() {
     let buttons;
-    //Si l'utilisateur on affiche ces lien dans la Navbar
+    //Si l'utilisateur est connecté on affiche ces lien dans la Navbar + boite Modal
     if(this.props.user){
       buttons = (
         <ul className="navbar-nav ml-auto">
@@ -87,12 +88,12 @@ constructor()
                       <textarea type="textarea" className="form-control" placeholder="Contenu"
                         onChange={e => this.content = e.target.value}/>
                     </div>
-                    
+
                     <button className="btn btn-primary btn-block">Poster un groupopost</button>
                   </form>
                 </Modal.Body>
                 <Modal.Footer>
-                  <Button onClick={() => {this.fileSelectedHandler()}}>Fermer</Button>
+                  <Button onClick={() => {this.handleModal()}}>Fermer</Button>
                 </Modal.Footer>
               </Modal>
           </li>

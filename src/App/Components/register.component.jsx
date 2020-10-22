@@ -17,7 +17,6 @@ export default class Register extends Component {
     //config d'axios + redirection à la page login si OK
     axios.post('users/register', data).then(
     res => {
-      document.location.href="http://localhost:3000/login"
       console.log(res)
     }
     //Sinon retourne l'erreur

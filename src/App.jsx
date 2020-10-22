@@ -12,6 +12,7 @@ import Profil from './App/Components/profil.component'
 import Error from './App/Error'
 import Footer from './App/Footer'
 
+
 export default class App extends Component {
   state = {};
 
@@ -54,12 +55,3 @@ render() {
     );
   }
 }
-
-
-//user ? <Wall /> : <LoginForm onConnect={setUser} />
-    //Wall />
-    //<SignupForm/>
-    //<LoginForm />
-    //<Home />
-    //<Registration />
-//user ? <Wall /> : <LoginForm onConnect={setUser} />

@@ -1,21 +1,21 @@
-import React, { memo } from 'react'
+import React, { memo, useState, useEffect, getItems } from 'react'
 import PropTypes from 'prop-types'
 import { Loader } from '../ui/Loader'
 import jwt_decode from "jwt-decode"
 import axios from 'axios'
 import moment from 'moment'
-import { Link } from 'react-router-dom'
 const fs = require('fs')
 const querystring = require('querystring')
 
 //Composant Groupoposts permetant l'affichage des Groupoposts
 export function Groupoposts({groupoposts, onClick}) {
-  
+
   if (groupoposts === null) {
     return <Loader />
   }
   //On récupère la la liste des Groupoposts
   return <div className="row">
+    {console.log('groupopost', groupoposts)}
     {groupoposts.map(groupopost => <div className="items-align-center w-100 mb-5" key={groupopost.id}>
       <Groupopost groupopost={groupopost} onClick={onClick} />
     </div> )}
@@ -28,10 +28,9 @@ Groupoposts.propTypes = {
 let token = localStorage.getItem('token')
 //Decriptage du token
 let decodedHeader = jwt_decode(token);
-console.log(decodedHeader)
 
 
-const Groupopost = memo(function ({ groupopost, userFound }) {
+const Groupopost = memo(function ({ groupopost }) {
   const deleteGroupopost = () => {
     axios.delete("/messages/" + groupopost.id, {
       headers: {
@@ -44,15 +43,15 @@ const Groupopost = memo(function ({ groupopost, userFound }) {
           .catch(function (error) {
               console.log(error);
           });
-    }   
+    }
 
   return (
-    <div className="row" key={groupopost.id}>
+    <div className="row boxMessage" key={groupopost.id}>
       <div className="card w-100">
         <div className="card-body ">
           <div className="card-title"><h3>{groupopost.title}</h3></div>
               <p className="card-text">{groupopost.content}</p>
-              {console.log( groupopost.username)}
+              <p className="username">{groupopost.User.username}</p>
               {(groupopost.UserId == decodedHeader.userId || decodedHeader.isAdmin) && 
                 <button key={groupopost.id}className="btn btn-danger" onClick={e => deleteGroupopost()}>Supprimer</button>
               }
